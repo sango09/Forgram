@@ -1,4 +1,5 @@
 # Platzigram URLs module.
+
 #Django
 from django.urls import path
 from platzigram import views as local_views

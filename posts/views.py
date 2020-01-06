@@ -3,7 +3,7 @@
 # Django
 from django.shortcuts import render
 
-# utilities
+# Utilities
 from datetime import datetime
 
 posts = [
