@@ -7,5 +7,4 @@ Create a minimal project (inspired by instagram) in Django.
 
 # Teacher and Author
 
-[Pablo Trinidad][01]|2018
-[01]: https://github.com/pablotrinidad
+[Pablo Trinidad](https://github.com/pablotrinidad "Pablo Trinidad")
