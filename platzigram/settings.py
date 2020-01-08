@@ -136,5 +136,8 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
+
 MEDIA_ROOT = '/mnt/c/Users/santi/Documents/Django/platzigram/media/'
 MEDIA_URL = '/media/'
+
+LOGIN_URL = '/users/login'
