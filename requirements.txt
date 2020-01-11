@@ -1,0 +1,4 @@
+Django==3.0.2
+pillow==7.0.0
+django-allauth==0.41.0
+mysqlclient==2.0.0
