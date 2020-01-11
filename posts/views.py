@@ -1,45 +1,45 @@
-# Posts views
+# Posts views.
 
 # Django
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import CreateView, DetailView, ListView
 
-# Utilities
-from datetime import datetime
+# Forms
+from posts.forms import PostForm
 
-posts = [
-    {
-        'title': 'Mont Blac',
-        'user': {
-            'name': 'Yessica cortes',
-            'picture': 'https://picsum.photos/60/60/?image=1027'
-        },
-        'timestamp': datetime.now().strftime('%b %dth, %Y - %H:%M hrs'),
-        'photo': 'https://picsum.photos/800/600?image=1036',
-
-    },
-    {
-        'title': 'Via Lactea',
-        'user': {
-            'name': 'C.vander',
-            'picture': 'https://picsum.photos/60/60/?image=1005'
-        },
-        'timestamp': datetime.now().strftime('%b %dth, %Y - %H:%M hrs'),
-        'photo': 'https://picsum.photos/800/800/?image=903',
-    },
-    {
-        'title': 'Nuevo auditorio',
-        'user': {
-            'name': 'Thespianartist',
-            'picture': 'https://picsum.photos/60/60/?image=883'
-        },
-        'timestamp': datetime.now().strftime('%b %dth, %Y - %H:%M hrs'),
-        'photo': 'https://picsum.photos/500/700/?image=1076',
-    }
-]
+# Models
+from posts.models import Post
 
 
-@login_required
-def lists_posts(request):
-    # lists existing posts.
-    return render(request, 'posts/feed.html', {'posts': posts},)
+class PostsFeedView(LoginRequiredMixin, ListView):
+    # Return all published posts.
+
+    template_name = 'posts/feed.html'
+    model = Post
+    ordering = ('-created',)
+    paginate_by = 30
+    context_object_name = 'posts'
+
+
+class PostDetailView(LoginRequiredMixin, DetailView):
+    # Return post detail.
+
+    template_name = 'posts/detail.html'
+    queryset = Post.objects.all()
+    context_object_name = 'post'
+
+
+class CreatePostView(LoginRequiredMixin, CreateView):
+    # Create a new post.
+
+    template_name = 'posts/new.hTml'
+    form_class = PostForm
+    success_url = reverse_lazy('posts:feed')
+
+    def get_context_data(self, **kwargs):
+        # Add user and profile to context.
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user
+        context['profile'] = self.request.user.profile
+        return context
