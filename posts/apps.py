@@ -1,9 +1,10 @@
-#Posts aplication module
+# Posts application module.
 
 from django.apps import AppConfig
 
 
 class PostsConfig(AppConfig):
-    #posts aplication settings
+    # Posts application settings.
+
     name = 'posts'
     varbose_name = 'Posts'
